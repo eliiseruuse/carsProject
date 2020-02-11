@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  postgres:
+    image: postgres:9.4
+    container_name: postgresbaas
+    environment:
+      - POSTGRES_USER=cars
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=carsbaas
+    ports:
+      - "1234:5432"
+    volumes:
+      - ./carsInit.sql:/docker-entrypoint-initdb.d/init.sql
