@@ -29,7 +29,9 @@ public class CarService {
 
 
     public Optional<Car> getCar(UUID carUid) {
-        return carDao.selectCarByCarUid(carUid);
+
+        Car car = carDao.selectCarByCarUid(carUid);
+        return Optional.ofNullable(car);
 
 
     }

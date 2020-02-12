@@ -2,7 +2,6 @@ package com.eliise.cars.dao;
 
 import com.eliise.cars.domain.Car;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -27,11 +25,27 @@ public class CarDao {
         return jdbcOperations.query("select * from public.cars", rowMapper);
     }
 
-    public Optional<Car> selectCarByCarUid(UUID carUid) {
-        return null;
+    public Car selectCarByCarUid(UUID carUid) {
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("carUid", carUid);
+
+        BeanPropertyRowMapper<Car> rowMapper = new BeanPropertyRowMapper<>(Car.class);
+        List<Car> cars = jdbcOperations.query("select * from public.cars where car_uid = :carUid", parameterSource, rowMapper);
+
+        if (cars.isEmpty()) {
+            return null;
+        } else {
+            return cars.get(0);
+        }
     }
 
     public int deleteCarByCarUid(UUID carUid) {
+
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+        parameterSource.addValue("carUid", carUid);
+
+        jdbcOperations.update("delete from public.cars where car_uid = :carUid", parameterSource);
+
         return 0;
     }
 
