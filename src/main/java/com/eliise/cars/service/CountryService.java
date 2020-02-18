@@ -21,7 +21,6 @@ public class CountryService {
     }
 
     public Optional<Country> getCountry(UUID countryUid) {
-
         Country country = countryDao.selectCountryByCountryUid(countryUid);
         return Optional.ofNullable(country);
     }
