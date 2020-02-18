@@ -65,6 +65,8 @@ public class CarDao {
                 "values (:carUid, :carBrand, :categorySign, :enginePower, :color, :gearbox, :fuel)", parameterSource);
 
         return uuid;
+
+
     }
 
 }

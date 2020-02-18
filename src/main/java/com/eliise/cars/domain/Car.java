@@ -3,8 +3,7 @@ package com.eliise.cars.domain;
 import java.util.UUID;
 
 public class Car {
-    //teine
-    //car id
+
     private  UUID carUid;
 
     private  String carBrand;
